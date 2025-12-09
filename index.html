@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Interactive League of Legends Gnar fan site with abilities, items, and gameplay"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>LoL Super Fan Site - Gnar</title>
+  </head>
+  <body>
+    <!-- Header Section: Gnar Image & Game Canvas -->
+    <div class="header-row">
+      <div class="gnar">
+        <img
+          src="images/gnar-norm.png"
+          id="gnar"
+          alt="Gnar character"
+          onclick="evolve()"
+        />
+      </div>
+      <div class="info">
+        <canvas
+          id="gameCanvas"
+          aria-label="Game canvas for ability testing"
+        ></canvas>
+        <div id="damageDisplay" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <!-- Content Section: Inventory, Abilities, and Items -->
+    <div class="content-row">
+      <!-- Left Sidebar: Inventory & Stats -->
+      <div class="sidebar-left">
+        <h3>Inventory</h3>
+
+        <div class="inventory-slot" data-slot="1" aria-label="Inventory slot 1">
+          <div class="slot-label">Slot 1</div>
+        </div>
+
+        <div class="inventory-slot" data-slot="2" aria-label="Inventory slot 2">
+          <div class="slot-label">Slot 2</div>
+        </div>
+
+        <div class="inventory-slot" data-slot="3" aria-label="Inventory slot 3">
+          <div class="slot-label">Slot 3</div>
+        </div>
+
+        <div class="stats-display">
+          <h4>Gnar's Stats</h4>
+          <div id="totalStats">
+            <p>Attack Damage: <span id="statAD">59</span></p>
+            <p>Health: <span id="statHP">580</span></p>
+            <p>Armor: <span id="statArmor">33</span></p>
+            <p>Magic Resist: <span id="statMR">32</span></p>
+            <p>Ability Haste: <span id="statAH">0</span></p>
+            <p>Attack Speed: <span id="statAS">0%</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Section: Abilities & Items -->
+      <div class="sidebar-right">
+        <!-- Abilities Row -->
+        <div class="main-top">
+          <div class="q" data-key="Q">
+            <img
+              src="images/boomerang.png"
+              id="qAbility"
+              alt="Q Ability - Boomerang Throw"
+            />
+          </div>
+          <div class="w" data-key="W">
+            <img src="images/hyper.png" id="wAbility" alt="W Ability - Hyper" />
+          </div>
+          <div class="e" data-key="E">
+            <img src="images/hop.png" id="eAbility" alt="E Ability - Hop" />
+          </div>
+          <div class="r" data-key="R">
+            <img src="images/ult.png" alt="R Ability - GNAR!!!" />
+          </div>
+        </div>
+        <!-- Items Row 1 -->
+        <div class="main-mid">
+          <div class="item1">
+            <img
+              src="images/stride.png"
+              class="item"
+              alt="Stridebreaker"
+              draggable="true"
+            />
+          </div>
+          <div class="item2">
+            <img
+              src="images/Gage.png"
+              class="item"
+              alt="Sterak's Gage"
+              draggable="true"
+            />
+          </div>
+          <div class="item3">
+            <img
+              src="images/boots.png"
+              class="item"
+              alt="Plated Steelcaps"
+              draggable="true"
+            />
+          </div>
+        </div>
+
+        <!-- Items Row 2 -->
+        <div class="main-bot">
+          <div class="item4">
+            <img
+              src="images/sheild.png"
+              class="item"
+              alt="Randuin's Omen"
+              draggable="true"
+            />
+          </div>
+          <div class="item5">
+            <img
+              src="images/Spirit.png"
+              class="item"
+              alt="Spirit Visage"
+              draggable="true"
+            />
+          </div>
+          <div class="item6">
+            <img
+              src="images/cleaver.png"
+              class="item"
+              alt="Black Cleaver"
+              draggable="true"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,666 @@
+/* ============================================
+   BASE STYLES
+   ============================================ */
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  background-color: black;
+  background-image: url("images/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: auto;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 10px;
+  box-sizing: border-box;
+  display: block;
+}
+
+/* ============================================
+       HEADER SECTION
+       ============================================ */
+.header-row {
+  height: calc(100% / 3);
+  width: 100%;
+  display: flex;
+}
+
+.gnar {
+  position: relative;
+  width: calc(100% / 3);
+  height: 100%;
+}
+
+#gnar {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: 3px solid gold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#gnar:hover {
+  transform: scale(1.02);
+}
+
+.gnar::before,
+.gnar::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid gold;
+  z-index: 10;
+}
+
+.gnar::before {
+  top: 10px;
+  left: 10px;
+  border-right: none;
+  border-bottom: none;
+  border-top-left-radius: 5px;
+}
+
+.gnar::after {
+  top: 10px;
+  right: 10px;
+  border-left: none;
+  border-bottom: none;
+  border-top-right-radius: 5px;
+}
+
+.info {
+  height: 100%;
+  width: calc((100% / 3) * 2);
+  position: relative;
+  background-color: rgba(20, 30, 50, 0.8);
+}
+
+/* ============================================
+       GAME CANVAS
+       ============================================ */
+#gameCanvas {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #1a2332 0%, #2d3e50 100%);
+  display: block;
+}
+
+#damageDisplay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #ff4444;
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px black;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* ============================================
+       CONTENT ROW
+       ============================================ */
+.content-row {
+  height: calc((100% / 3) * 2);
+  width: 100%;
+  display: flex;
+}
+
+/* ============================================
+       INVENTORY SIDEBAR
+       ============================================ */
+.sidebar-left {
+  height: 100%;
+  width: 25%;
+  background-color: rgba(77, 191, 219, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.sidebar-left h3 {
+  color: white;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 18px;
+}
+
+.inventory-slot {
+  width: 90%;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 3px dashed #666;
+  border-radius: 10px;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.inventory-slot.drag-over {
+  background-color: rgba(255, 215, 0, 0.3);
+  border-color: gold;
+  transform: scale(1.05);
+}
+
+.inventory-slot.filled .slot-label {
+  display: none;
+}
+
+.inventory-slot img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.slot-label {
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* ============================================
+       STATS DISPLAY
+       ============================================ */
+.stats-display {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  width: 90%;
+  margin-top: 10px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.stats-display h4 {
+  color: gold;
+  text-align: center;
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.stats-display p {
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+/* ============================================
+       ABILITIES & ITEMS SECTION
+       ============================================ */
+.sidebar-right {
+  height: 100%;
+  width: 75%;
+}
+
+.main-top {
+  height: calc(100% / 3);
+  width: 100%;
+  display: flex;
+}
+
+.q,
+.w,
+.e,
+.r {
+  height: 100%;
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.q img,
+.w img,
+.e img,
+.r img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+  transition: all 0.2s;
+}
+
+.q img:hover,
+.w img:hover,
+.e img:hover,
+.r img:hover {
+  cursor: pointer;
+  filter: brightness(110%) drop-shadow(0px 0px 8px gold);
+  transform: scale(1.05);
+}
+
+.ability-cooldown {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Key Indicators */
+.q::after,
+.w::after,
+.e::after,
+.r::after {
+  content: attr(data-key);
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: gold;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border: 2px solid gold;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.q:hover::after,
+.w:hover::after,
+.e:hover::after,
+.r:hover::after {
+  background-color: gold;
+  color: black;
+}
+
+/* Reset Button Indicator */
+.info::before {
+  content: "SPACE: Reset Dummy";
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #4caf50;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 2px solid #4caf50;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ============================================
+       ITEMS GRID
+       ============================================ */
+.main-mid,
+.main-bot {
+  height: calc(100% / 3);
+  width: 100%;
+  display: flex;
+}
+
+.item1,
+.item2,
+.item3,
+.item4,
+.item5,
+.item6 {
+  height: 100%;
+  width: calc(100% / 3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+  cursor: grab;
+  transition: all 0.2s;
+}
+
+.item:hover {
+  cursor: pointer;
+  filter: brightness(110%) drop-shadow(2px 8px 3px gold);
+  transform: scale(1.04);
+}
+
+.item:active {
+  cursor: grabbing;
+  filter: drop-shadow(0px 0px 3px);
+  transform: scale(0.98);
+}
+
+/* ============================================
+       ITEM MODAL
+       ============================================ */
+.item-modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.item-modal-content {
+  background-color: #1a1a2e;
+  color: white;
+  padding: 30px;
+  border: 3px solid gold;
+  border-radius: 10px;
+  width: 60%;
+  max-width: 600px;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.item-modal-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid gold;
+  padding-bottom: 15px;
+}
+
+.item-modal-image {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  object-fit: contain;
+}
+
+.item-modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: gold;
+}
+
+.item-modal-stats {
+  margin: 15px 0;
+  line-height: 1.8;
+}
+
+.item-modal-passive {
+  background-color: rgba(255, 215, 0, 0.1);
+  padding: 15px;
+  border-left: 3px solid gold;
+  margin: 15px 0;
+  line-height: 1.6;
+}
+
+.close-modal {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-modal:hover {
+  color: white;
+}
+
+/* ============================================
+       RESPONSIVE: TABLET
+       ============================================ */
+@media only screen and (max-width: 900px) {
+  .info::before {
+    font-size: 10px;
+    padding: 6px 10px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .q::after,
+  .w::after,
+  .e::after {
+    content: "TAP";
+    font-size: 12px;
+    padding: 3px 8px;
+  }
+
+  .r::after {
+    content: "TAP";
+    font-size: 12px;
+    padding: 3px 8px;
+  }
+
+  .header-row {
+    flex-direction: column;
+    height: 50%;
+  }
+
+  .gnar {
+    width: 100%;
+    height: 50%;
+  }
+
+  .info {
+    width: 100%;
+    height: 50%;
+  }
+
+  .content-row {
+    height: 50%;
+  }
+
+  .sidebar-left {
+    width: 30%;
+  }
+
+  .sidebar-right {
+    display: flex;
+    width: 70%;
+  }
+
+  .main-top {
+    height: 100%;
+    width: calc(100% / 3);
+    flex-direction: column;
+  }
+
+  .q,
+  .w,
+  .e,
+  .r {
+    height: 25%;
+    width: 100%;
+  }
+
+  .main-mid {
+    height: 100%;
+    width: calc(100% / 3);
+    flex-direction: column;
+  }
+
+  .main-bot {
+    height: 100%;
+    width: calc(100% / 3);
+    flex-direction: column;
+  }
+
+  .item1,
+  .item2,
+  .item3,
+  .item4,
+  .item5,
+  .item6 {
+    height: calc(100% / 3);
+    width: 100%;
+  }
+
+  .inventory-slot {
+    height: 80px;
+    margin: 5px 0;
+  }
+
+  .stats-display {
+    font-size: 11px;
+    padding: 8px;
+  }
+
+  .stats-display h4 {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  .stats-display p {
+    margin: 5px 0;
+  }
+}
+
+/* ============================================
+       RESPONSIVE: MOBILE
+       ============================================ */
+@media only screen and (max-width: 600px) {
+  body {
+    overflow: auto;
+  }
+
+  .header-row {
+    height: 30%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .gnar {
+    height: 100%;
+    width: 40%;
+  }
+
+  .info {
+    display: none;
+  }
+
+  .content-row {
+    height: 70%;
+    width: 100%;
+    display: flex;
+  }
+
+  .sidebar-left {
+    display: flex;
+    width: 40%;
+  }
+
+  .sidebar-left h3 {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  .inventory-slot {
+    height: 70px;
+    margin: 5px 0;
+  }
+
+  .stats-display {
+    font-size: 10px;
+    padding: 8px;
+  }
+
+  .stats-display h4 {
+    font-size: 13px;
+    margin: 5px 0;
+  }
+
+  .stats-display p {
+    margin: 4px 0;
+  }
+
+  .sidebar-right {
+    display: flex;
+    width: 60%;
+    flex-direction: row;
+  }
+
+  .main-top {
+    height: 100%;
+    width: calc(100% / 3);
+    flex-direction: column;
+  }
+
+  .q,
+  .w,
+  .e,
+  .r {
+    height: 25%;
+    width: 100%;
+  }
+
+  .main-mid {
+    height: 100%;
+    width: calc(100% / 3);
+    flex-direction: column;
+  }
+
+  .main-bot {
+    height: 100%;
+    width: calc(100% / 3);
+    flex-direction: column;
+  }
+
+  .item1,
+  .item2,
+  .item3,
+  .item4,
+  .item5,
+  .item6 {
+    height: calc(100% / 3);
+    width: 100%;
+  }
+
+  .q img,
+  .w img,
+  .e img,
+  .r img {
+    width: 65%;
+    height: 65%;
+  }
+
+  .item {
+    width: 65%;
+    height: 65%;
+  }
+
+  .item-modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .item-modal-title {
+    font-size: 18px;
+  }
+
+  .item-modal-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .item-modal-stats,
+  .item-modal-passive {
+    font-size: 12px;
+  }
+}
