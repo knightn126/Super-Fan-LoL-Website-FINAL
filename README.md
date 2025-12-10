@@ -1,2 +1,2 @@
-# Supper-Fan-LoL-Website-FINAL
+# Super-Fan-LoL-Website-FINAL
 Created with CodeSandbox
